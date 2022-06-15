@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
+</head>
+<body>
+    <form action="">
+        <input type="file" id="filess" accept=".xlsx,.xls,.xlsm">
+        <input type="button" id="upload" value="Upload File">
+        <input type="range" value="0" min="0" max="100" step="20" list="my-detents">
+    </form>
+    <table id="mytable" border="1">
+
+    </table>
+</body>
+<script>
+    let fileselected;
+    document.getElementById("filess").addEventListener("change",(event)=>{
+        fileselected=event.target.files[0];
+        console.log(event.target.files[0]);
+    })
+    document.getElementById("upload").addEventListener("click",()=>{
+        if(fileselected){
+            let fileread=new FileReader();
+            fileread.readAsBinaryString(fileselected);
+            fileread.onload=(ev)=>{
+                console.log(ev.target.result);
+                let data = event.target.result;
+                let workbook = XLSX.read(data,{type:"binary"});
+                var namesS=workbook.SheetNames[0];
+                console.log(workbook);
+                console.log(namesS);
+                var s=workbook.Sheets[namesS];
+                console.log(s);
+                
+                // object key only fetched
+                var obj=Object.keys(s),ref=s["!ref"];
+                var myarray=ref.split(":");
+                var myarray1=[],myarray2=[];
+                for(var i=0;i<2;i++){
+                    var e=myarray[i],x="",x1="";
+                    for (var j=0;j<e.length;j++){
+                        if(isNaN(e[j])){
+                            x=x+e[j];
+                        }
+                        else{
+                            x1=x1+e[j]
+                        }
+                    }
+                    myarray1.push(x)
+                    myarray2.push(x1)
+                }
+                console.log(obj,ref,myarray1,myarray2)
+                var newobj=obj.slice(1,obj.length-1)
+                console.log(newobj)
+                /* for(var i=0;i<newobj.length;i++){
+                    console.log(s[newobj[i]].w)
+                } */
+                const stringToSum = str => [...str||"A"].reduce((a, x) => a += x.codePointAt(0), 0);
+                function testing(s){
+                    result = 0
+                    for(var B=0;B<s.length;B++){
+                        result = result * 26;
+                        result = result + stringToSum(s[B]) - 65 + 1;
+                    }
+                    return result
+                }
+                console.log(obj,ref,myarray1,myarray2,testing(myarray1[0]),testing(myarray1[1]))
+                var MAX=myarray1[1].length+1
+                function printString(n){
+                    var string = []
+                    var i = 0
+                    while (n > 0){
+                        rem = n % 26
+                        if (rem == 0){
+                            string[i] = 'Z'
+                            i = i + 1
+                            n = Math.floor(n / 26) - 1
+                            console.log(n,"if")
+                        }
+                        else{
+                            string[i] = String.fromCharCode((rem - 1) + stringToSum('A'))
+                            i = i + 1
+                            n = Math.floor(n / 26)
+                        }
+                    }
+                    string = string.reverse()
+                    return string.join("")
+                }
+                var colName=[];
+                for(i=testing(myarray1[0]);i<=testing(myarray1[1]);i++){
+                    colName.push(printString(i))
+                }
+                console.log(colName);
+                var tableval="",count=0;
+                for(var i=parseInt(myarray2[0]);i<=parseInt(myarray2[1]);i++){
+                    tableval+="<tr>"
+                    for(var j=1;j<=colName.length;j++){
+                        var className=colName[j-1]+i;
+                        if(newobj.includes(className)){
+                            var d=s[className]["w"];
+                            tableval+="<td class="+className+" id=Col"+j+">"+d+"</td>"
+                        }
+                        else{
+                            tableval+="<td class="+className+" id=Col"+j+">&nbsp;</td>"
+                        }
+                    }
+                    tableval+="</tr>";
+                }
+                console.log(tableval);
+                document.getElementById("mytable").innerHTML=tableval;
+            }
+            
+
+        }
+    })
+</script>
+</html>
