@@ -1,0 +1,27 @@
+.Forget{
+    float: right;
+    margin: 5px 23% 22px 0;
+    color: rgb(87, 6, 238);
+    cursor: pointer;
+  }
+  .Forget:hover{
+    text-decoration: underline;
+  }
+  .best{
+    padding-top: 130px;padding-bottom: 125px;
+  }
+  @media screen and (max-width: 600px) {
+      .best {
+        padding-top: 20px;
+        padding-bottom: 0px;
+      }
+  }
+  .field-icon {
+  float: right;
+  opacity: .75;
+  margin-right: 22%;
+  font-size: 20px;
+  margin-top: -55px;
+  position: relative;
+  z-index: 2;
+}

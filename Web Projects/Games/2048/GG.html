@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="game.css">
+    <link rel="stylesheet" href="home.css">
+    <link rel="shortcut icon" href="rubygames.ico" />
+    <title>2048</title>
+</head>
+
+<style>
+    #home{
+        font-size: 30px;
+        padding-left: 10px;
+    }
+</style>
+<body>
+    <div id = "confirm">
+        <div class = "message"></div>
+        <button class = "Restart" onclick="remover('11')">Cancel</button>
+        <button class = "Restart" onclick="remover()">Restart</button>
+    </div>
+    <div id = "NewGame">
+        <div class = "message">Do you want to restar the gamet</div>
+        <button class = "Restart" onclick="remover('11')">Cancel</button>
+        <button class = "Restart" onclick="remover()">NewGame</button>
+    </div>
+
+    <!-- top comman-->
+    <div id="logo">
+        <img src="rubygames.ico" alt="rubygames" width="100px" height="80px">
+        <div id="left">
+            <div id="user" class="dropbtn">
+                <i onclick="anyFunction()" class="bi bi-person-circle" ></i>
+            </div>
+            
+            <div id="chicken" class="goldenflower">
+                <div id="myDropdown" class="dropdown-content">
+                    <p onclick="profile()">Karthikeyan S</p>
+                    <p onclick="change()">Change Password</p>
+                    <p onclick="logouted()">Log out</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- top comman-->
+    
+        
+    <h1>2048 Game</h1>
+    
+    <select name="mode" id="mode" oninput="myFunction()" style="float:left">
+    <option value="4">4X4</option>
+    <option value="5">5X5</option>
+    <option value="6">6X6</option>
+    </select>
+    
+    <div id="Score">
+    <p id="nor">Score:0</p>
+    <ul id="mobile1">
+        <div id="M3">
+            <li id="M33S" onclick="gotohome()">
+                <i  class="bi bi-house-fill"></i>
+            </li>
+            <li id="M31S" onclick="NewGame()">
+                <i class="bi bi-arrow-repeat"></i>
+            </li>
+            <li id="M32S" onclick="undofun()">
+                <i class="bi bi-arrow-counterclockwise"></i>
+            </li>
+            
+        </div>
+    </ul>
+    </div>
+    <!-- phone control -->
+    <ul id="mobile">
+        <div id="M1">
+            <li>Score</li>
+            <li>0</li>
+        </div>
+        <div id="M2">
+            <li>High Score</li>
+            <li>0</li>
+        </div>
+        <div id="M3">
+            <li id="M33" onclick="gotohome()">
+                <i  class="bi bi-house-fill"></i>
+            </li>
+            <li id="M31" onclick="NewGame()">
+                <i class="bi bi-arrow-repeat"></i>
+            </li>
+            <li id="M32" onclick="undofun()">
+                <i class="bi bi-arrow-counterclockwise"></i>
+            </li>
+        </div>
+    </ul>
+
+<p id="RRR">&nbsp;</p>
+<div class="game">
+</div>
+<p id="popup" style="display:none"></p>
+</body>
+
+<script src="gamemobile.js"></script>
+<script src="game.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script>
+    function anyFunction() {
+        document.getElementById("chicken").classList.toggle("goldenflower1");
+        document.getElementById("myDropdown").classList.toggle("show");
+    }
+    window.onclick = function(event) {
+        if (!event.target.matches('.bi')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var dp=document.getElementsByClassName("goldenflower");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+                var openDropdown = dropdowns[i];
+                var dp1=dp[i];
+                if (openDropdown.classList.contains('show')) {
+                    dp1.classList.remove('goldenflower1');
+                    openDropdown.classList.remove('show');
+                }
+            }
+        }
+    }
+</script>
+</html>
