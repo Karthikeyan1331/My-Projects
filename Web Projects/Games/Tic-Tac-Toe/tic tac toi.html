@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&effect=neon|outline|emboss|shadow-multiple|fire" rel='stylesheet'></style>
+    <title>tictactoe</title>
+</head>
+<style>
+body{
+    background-image: url("tic.png"),url("back.png");
+    background-position: fixed,fixed;
+    background-size: 920px,100%;
+    background-repeat:no-repeat;
+}
+.box button{
+    background-color: Transparent;
+    border: none;
+    font-size: 200px;
+}
+.box{font-family: Poppins;
+    margin-left: 105px;
+      margin-top: 30px;
+}
+button{
+    padding-right: 180px;
+    margin-right: 20px ;
+}
+#confirm {
+    display: none;
+    background-color: #fcfcfc;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    position: fixed;
+    width: 500px;
+    height: 100px;
+    left: 50%;
+    margin-left: -100px;
+    margin-top: 20%;
+    box-sizing: border-box;
+    text-align: center;
+}
+#confirm button {
+    background-color: #48E5DA;
+    border-radius: 5px;
+    border: 1px solid #aaa;
+    padding: 5px;
+    text-align: center;
+    width: 80px;
+    cursor: pointer;
+    margin-top: 7 px;
+    margin-left: 40px;
+}
+#confirm .message {
+    font-family: Poppins;
+    font-weight: bold;
+    margin: 4px;
+    text-align: center;
+}
+#win{
+    color:blue
+}
+</style>
+<body>
+    <div id = "confirm">
+        <p id="win" class = "message">hi</p>
+        <div class = "message">Do you want to restart it</div>
+        <button class = "Restart" onclick="Restart()">Restart</button>
+     </div>
+    <div class="box">
+        <button onclick="tic('11')" id="11">&nbsp;</button>
+        <button onclick="tic('12')" id="12">&nbsp;</button>
+        <button onclick="tic('13')" id="13">&nbsp;</button><br>
+        <button onclick="tic('21')" id="21">&nbsp;</button>
+        <button onclick="tic('22')" id="22">&nbsp;</button>
+        <button onclick="tic('23')" id="23">&nbsp;</button><br>
+        <button onclick="tic('31')" id="31">&nbsp;</button>
+        <button onclick="tic('32')" id="32">&nbsp;</button>
+        <button onclick="tic('33')" id="33">&nbsp;</button>
+    </div>
+</body>
+<script src="tic.js">
+    
+</script>
+</html>
