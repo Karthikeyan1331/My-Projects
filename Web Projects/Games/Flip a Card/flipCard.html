@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="C:/Users/HP/Desktop/town hall/PROJECT/flip card/flipCard.css">
+    <title>Document</title>
+</head>
+<body>
+    <h1>flip card</h1>
+    <h3 id="score">Score:0</h3>
+    <div >
+        <table id="table1" class="flip-card">
+
+        </table>
+    </div>
+</body>
+<script>
+    numofrowcol=4
+    var ro=0
+    var pre=[]
+    var imgname=[]
+    var pic=[]
+    var piccopy=[]
+    function shuffleArray(array) 
+    {
+        for (var i = array.length - 1; i > 0; i--) 
+        {
+            // Generate random number
+            var j = Math.floor(Math.random() * (i + 1));
+            var temp = array[i];
+            array[i] = array[j];
+            array[j] = temp;
+        }  
+        return array;
+    }
+    var cvt=(numofrowcol*numofrowcol)/2
+    extr=cvt%15
+    cvtx=Math.floor(cvt/15)
+    for(j=0;j<cvtx;j++){
+        for(i=1;i<=15;i++){
+            piccopy.push(i)
+            pic.push(i)
+        }
+    }
+    console.log(pic,extr,15-extr)
+    pi=getRndInteger(1,15-extr)
+    for(i=pi;i<pi+(extr);i++){
+        piccopy.push(i)
+        pic.push(i)
+    }
+    function getRndInteger(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+    pic=pic.concat(piccopy)
+    console.log(pic)
+    pic=shuffleArray(pic)
+    console.log(pic)
+    window.onclick=(event=>{
+        if(event.target.className=='img'){
+            paths=event.path
+            for (p of paths){
+                try{
+                    if(p.id.slice(0,4  )=='flip'){
+                        imgname.push(event.target)
+                        y='flip'+p.id.slice(4,)
+                        document.getElementById(y).style.transform='rotateY(180deg)'
+                        pre.push(y)
+                        ro+=1
+                    }
+                }  
+                catch(e){
+                    console.log()
+                }
+            }
+            function same(c1,c2){
+                if(document.getElementById(c1).src==document.getElementById(c2).src){
+                    document.getElementById(pre[0]).id='complete'+pre[0].slice(4,)
+                    document.getElementById(pre[1]).id='complete'+pre[1].slice(4,)
+                    imgname[0].src='C:/Users/HP/Desktop/town hall/PROJECT/flip card/tick.jpg'
+                    imgname[1].src='C:/Users/HP/Desktop/town hall/PROJECT/flip card/tick.jpg'
+                    ptemp=document.getElementById('score')
+                    ex=Number(ptemp.innerHTML.slice(6,))+2
+                    console.log(ex)
+                    ptemp.innerHTML=`Score:${ex}`
+
+
+                }
+            }
+            if(ro>=2){ 
+                setTimeout(()=>{
+                    for(p of pre)
+                        document.getElementById(p).style.transform='rotateY(0deg)'
+                    same('back'+pre[0].slice(4,),'back'+pre[1].slice(4,))
+                    ro=0
+                    pre=[]
+                    imgname=[]
+
+                },500)
+            }
+        }
+    })
+
+    
+    table=document.getElementById('table1')
+    cnt=0
+    for(var i=0;i<numofrowcol;i++){
+        tr=document.createElement('tr')
+        for(var j=0;j<numofrowcol;j++){
+            td=document.createElement('td')
+            //all
+            div=document.createElement('div')
+            div.setAttribute('class','flip-card-inner')
+            div.setAttribute('id',`flip${i}${j}`)
+            //front
+            div1=document.createElement('div')
+            div1.setAttribute('class','flip-card-front')
+            img=document.createElement('img')
+            img.setAttribute('class','img')
+            img.setAttribute('src','C:/Users/HP/Desktop/town hall/PROJECT/flip card/king_of_hearts2.png')
+            img.setAttribute('width','100%')
+            img.setAttribute('height','100%')
+            div1.appendChild(img)
+            div.appendChild(div1)
+            //back
+            div1=document.createElement('div')
+            div1.setAttribute('class','flip-card-back')
+            img=document.createElement('img')
+            img.setAttribute('id',`back${i}${j}`)
+            img.setAttribute('src',`C:/Users/HP/Desktop/town hall/PROJECT/flip card/images/town hall ${pic[cnt]}.png`)
+            img.setAttribute('width','100%')
+            img.setAttribute('height','100%')
+            div1.appendChild(img)
+            div.appendChild(div1)
+            td.appendChild(div)
+            tr.appendChild(td)
+            cnt+=1
+        }
+        table.appendChild(tr)
+    }
+
+</script>
+</html>
