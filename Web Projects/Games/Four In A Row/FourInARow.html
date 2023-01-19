@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .myTable {
+        background-color: rgb(0, 0, 255);
+        padding: 10px;
+        border-spacing: 0;
+    }
+
+    .myTable tbody td {
+        color: #333;
+        text-align: center;
+    }
+
+    .myTable-rounded tbody td {
+        
+        padding: 5vw;
+        border-radius: 40em;
+    }
+    @media only screen and (min-width: 1000px) {
+        .myTable-rounded tbody td {
+        padding: 7vh;
+        }
+    }
+    .centers{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        min-height: 100vh;
+    }
+    .cell{
+        border: .5em solid rgb(13, 13, 13);
+        background-color: #EEE;
+        
+    }
+    .cellhl{
+        border: .5em solid rgb(41, 40, 40);
+        background-color: rgb(211, 210, 210);
+        
+    }
+    .red{
+        animation: mymove .3s;
+    }
+    .blue{
+        animation: mymove1 .3s;
+    }
+    .redcoin{
+        background-color: red;
+    }
+    .bluecoin{
+        background-color: blue;
+    }
+    .winround{
+        border: .5em solid rgb(3, 3, 3);
+        animation: winanimate 1s infinite;
+    }
+    @keyframes mymove {
+  from {background:red;}
+  to {background: white;}
+}
+@keyframes mymove1 {
+  from {background:rgb(51, 0, 255);}
+  to {background: white;}
+}
+@keyframes winanimate {
+    0%{
+        box-shadow: 1px 1px 20px #2bbc0a;
+    }
+    50%{
+        box-shadow: 1px 1px 60px #31dd0a;
+    }
+    100%{
+        box-shadow: 1px 1px 30px #2bbc0a;
+    }
+}
+</style>
+<body>
+    <div class="centers">
+    <table class="myTable myTable-rounded">
+        <tbody>
+
+        </tbody>
+    </table>
+</div>
+<script>
+    function started()
+    {
+        var table=document.getElementsByClassName("centers")[0].getElementsByClassName("myTable myTable-rounded")[0].getElementsByTagName("tbody")[0]
+        table.innerHTML=''
+        for(var i=0;i<6;i++){
+            var tr=document.createElement("tr")
+            for(var j=0;j<7;j++){
+                td=document.createElement("td")
+                td.setAttribute('id',i.toString()+j.toString())
+                td.setAttribute('class','cell')
+                tr.appendChild(td)
+            }
+            table.appendChild(tr)
+        }
+    }
+    var j=0;
+    var flag=0;
+    function winner(loc){
+        r=parseInt(loc[0])
+        c=parseInt(loc[1])
+        console.log(r+c)
+        win=[]
+        stop1=0
+        check=document.getElementById(loc).className.split(" ")[1]
+        //horizondal and vertical
+        if(c+3<7){
+            win=[]
+            for(var i=1;i<4;i++){
+                p=r.toString()+(c+i).toString()
+                temp=document.getElementById(p).className.split(" ")
+                if(temp.length>1 && temp[1]==check)
+                    win.push(p)
+                else
+                    break
+            }
+            if(win.length==3)
+            return win
+        }
+        if(c-3>-1){
+            win=[]
+            for(var i=1;i<4;i++){
+                p=r.toString()+Math.abs(c-i).toString()
+                temp=document.getElementById(p).className.split(" ")
+                if(temp.length>1 && temp[1]==check)
+                    win.push(p)
+                else
+                    break
+            }
+            if(win.length==3)
+            return win
+        }
+        
+        if(r+3<6){
+            win=[]
+            for(var i=1;i<4;i++){
+                p=(r+i).toString()+c.toString()
+                temp=document.getElementById(p).className.split(" ")
+                if(temp.length>1 && temp[1]==check)
+                    win.push(p)
+                else
+                    break
+            }
+            if(win.length==3)
+            return win
+        }
+        //diagonal
+        if(r-3>-1 && c+3<7){
+            win=[]
+            for(var i=1;i<4;i++){
+                p=Math.abs(r-i).toString()+(c+i).toString()
+                temp=document.getElementById(p).className.split(" ")
+                if(temp.length>1 && temp[1]==check)
+                    win.push(p)
+                else
+                    break
+            }
+            if(win.length==3)
+            return win
+        }
+        if(r-3>-1 && c-3>-1){
+            win=[]
+            for(var i=1;i<4;i++){
+                p=Math.abs(r-i).toString()+Math.abs(c-i).toString()
+                temp=document.getElementById(p).className.split(" ")
+                if(temp.length>1 && temp[1]==check)
+                    win.push(p)
+                else
+                    break
+            }
+            if(win.length==3)
+            return win
+        }
+        if(r+3<6 && c+3<7){
+            win=[]
+            for(var i=1;i<4;i++){
+                p=(r+i).toString()+(c+i).toString()
+                temp=document.getElementById(p).className.split(" ")
+                if(temp.length>1 && temp[1]==check)
+                    win.push(p)
+                else
+                    break
+            }
+            if(win.length==3)
+            return win
+        }
+        if(r+3<6 && c-3>-1){
+            win=[]
+            for(var i=1;i<4;i++){
+                p=(r+i).toString()+Math.abs(c-i).toString()
+                temp=document.getElementById(p).className.split(" ")
+                if(temp.length>1 && temp[1]==check)
+                    win.push(p)
+                else
+                    break
+            }
+            if(win.length==3)
+            return win
+        }
+        return []
+    }
+    function DrawX(w){
+        
+        for(var i=0;i<w.length;i++){
+            cl=document.getElementById(w[i]).className.split(" ")
+            document.getElementById(w[i]).className='winround '+cl[1]
+
+        }
+
+    }
+    function botfun(){
+        
+    }
+    function fall(tar,i,colors,coin,temp){
+        if(i<6 && (temp[1]!='redcoin' && temp[1]!='bluecoin')){
+            flag=1
+            document.getElementById((i!=0?i-1:i).toString()+tar).className='cell';
+            document.getElementById(i.toString()+tar).className='cell '+colors;
+            i+=1
+            if(i<6){
+            temp=document.getElementById(i.toString()+tar).className.split(" ");}
+            setTimeout(function(){fall(tar,i,colors,coin,temp)},100)
+        }
+        else{
+            normal(tar)
+            if(i!=0){
+                document.getElementById((i-1).toString()+tar).className='cell '+coin;
+                vic=winner((i-1).toString()+tar)
+                if(vic.length==0)
+                {
+                    if(j==41)
+                        console.log("draw")
+                    else{
+                        
+                        flag=0
+                    }
+                }
+                else{
+                    vic.push((i-1).toString()+tar)
+                    DrawX(vic);
+                    console.log("victory")
+                }
+                j+=1
+            }
+        }
+    }
+    window.onclick=(e=>{
+        var q=e.target.className.split(" ")
+        if((q[0]=='cellhl' || q[0]=='cell')&&(flag==0)){
+            var tar=e.target.id[1];
+            var i=0;
+            console.log(j)
+            var colors=(j%2==0)?"red":"blue",coin=(j%2==0)?"redcoin":"bluecoin";
+            
+            temp=document.getElementById("0"+tar).className.split(" ");
+            
+            fall(tar,i,colors,coin,temp)
+        }
+    })
+    window.onmouseover=(e=>{
+        var q=e.target.className.split(" ")
+        if(q[0]=='cell' && flag==0){
+            var tar=e.target.id[1];
+            for(var i=0;i<6;i++){
+                temp=document.getElementById(i.toString()+tar).className.split(" ");
+                console.log(temp[0])
+                document.getElementById(i.toString()+tar).className=(temp.length>1)?'cellhl '+temp[1]:'cellhl';
+                
+            }
+            
+        }
+    })
+    window.onmouseout=(e=>{
+        var q=e.target.className.split(" ")
+        if(q[0]=='cellhl' && flag==0){
+            var tar=e.target.id[1];
+            normal(tar);
+        }
+    })
+    function normal(tar){
+        for(var i=0;i<6;i++){
+            temp=(document.getElementById(i.toString()+tar).className).split(" ");
+            console.log(temp[0])
+            document.getElementById(i.toString()+tar).className=(temp.length>1)?'cell '+temp[1]:'cell';
+            }
+    }
+    started()
+</script>
+</body>
+</html>
