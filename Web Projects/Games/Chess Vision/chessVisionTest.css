@@ -1,0 +1,205 @@
+.parent {
+    display: flex;
+    justify-content: center;
+    }
+    table{
+        table-layout: fixed;
+    border-spacing: 0;
+    }
+    td{
+        width: 60px;
+        height: 60px;
+        padding: 0px;
+        margin: 0px;
+        border: .1px solid black;
+        cursor: pointer;
+    }
+    .center1{
+        text-align: center;
+        margin: 0px;
+    }
+    .btntheme{
+        position:absolute;
+        float:right;
+        margin-right: 10px;
+        padding:0px;
+        right: 0;
+        overflow-x: hidden;
+    }
+/* hover menu
+
+
+
+hellooooooooooooooooooooo
+
+
+*/
+
+
+.sidenav {
+position:absolute;
+float:right;
+margin-right: 10px;
+  width: 200px;
+  height: 300px;
+  z-index: 1;
+  padding:0px;
+  margin-top: 20px;
+  right: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.sidenav div {
+  padding: 6px 0px 6px 40%;
+  cursor: pointer;
+  display: block;
+  outline: none;
+}
+
+/* On mouse-over */
+.sidenav div:hover {
+  background-color: #f1f1f1;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+.letter{
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+    border: none;
+    text-align: center;
+    height:5px;
+    font-size:8px;
+}
+.letter1{
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+    border: none;
+    width: 5px;
+    font-size: 8px;
+}
+.cornor{
+    width: 5px;
+    height: 5px;
+    border: none;
+}
+.com{
+    position: absolute;
+    font-size: 25px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.timers{
+    margin:20px 30px 0px 0px;
+    float:right;
+    right: 0;
+}
+.Score{
+    margin: 25px 0px 0px 10px;
+    float: left;
+    left: 0;
+}
+/* on screen effect */
+#overlay,#overlap1 {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,.5);
+  z-index: 2;
+  cursor: pointer;
+}
+.timeicon{
+    margin:20px 5px 0px 0px;
+    cursor: pointer;
+    background-color: gray;
+    opacity: 1;
+    color: white;
+}
+.timeicon:hover{
+    opacity: .5;
+    color: #111;
+    margin-right: 2px;
+    font-size: 28px;
+}
+#myFirstDialog{
+    width:300px;
+    height: 100px;
+    background-color:#F4FFEF;
+    position: absolute;
+    box-shadow: .1px .1px 20px grey;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top:0;
+    bottom: 0;
+}
+#close{
+    float: right;
+    margin:5px 5px 0px 0px;
+    position: absolute;
+    right:0;
+    font-size: 20px;
+    color: red;
+    cursor: pointer;
+}
+#play{
+    float: right;
+    margin-right:2px;
+    color:rgb(49, 172, 25);
+    font-size: 30px;
+    cursor: pointer;
+}
+#play:hover{
+    font-size: 32px;
+}
+#close:hover{
+    font-size:22px
+}
+.a8:hover,.b8:hover,.c8:hover,.d8:hover,.e8:hover,.f8:hover,.g8:hover,.h8:hover,.a7:hover,.b7:hover,.c7:hover,.d7:hover,.e7:hover,.f7:hover,.g7:hover,.h7:hover,.a6:hover,.b6:hover,.c6:hover,.d6:hover,.e6:hover,.f6:hover,.g6:hover,.h6:hover,.a5:hover,.b5:hover,.c5:hover,.d5:hover,.e5:hover,.f5:hover,.g5:hover,.h5:hover,.a4:hover,.b4:hover,.c4:hover,.d4:hover,.e4:hover,.f4:hover,.g4:hover,.h4:hover,.a3:hover,.b3:hover,.c3:hover,.d3:hover,.e3:hover,.f3:hover,.g3:hover,.h3:hover,.a2:hover,.b2:hover,.c2:hover,.d2:hover,.e2:hover,.f2:hover,.g2:hover,.h2:hover,.a1:hover,.b1:hover,.c1:hover,.d1:hover,.e1:hover,.f1:hover,.g1:hover,.h1:hover{
+    opacity: 0.5;
+}
+
+/* report window */
+
+.reportWin{
+    width:100%;
+    background-color:#fbf7f7;
+    
+}
+.unorder{
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+    
+}
+#listR{
+    display: inline-block;
+    margin: 5px;
+}
+.scorebox{
+    width:300px;
+    height: 300px;
+    background-color:#f4ffeff5;
+    position: absolute;
+    box-shadow: .1px .1px 20px grey;
+    margin: auto;
+    left: 0;right: 0;top:0;bottom: 0;
+}
+/* overlap1 css 
+    score display css.............................................................
+*/
+.temp{
+    text-align: center;top:10%;margin-top: 10%;font-family:Arial, Helvetica, sans-serif;
+}
+.temp1{
+    position: absolute; left: 50%;margin-left: -50px;top:50%;margin-top:-100px
+}

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="chessVisionTest.css">
+    <title>chess Vision test</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    <div id="overlap1" style="display: none;">
+        <div class="scorebox">
+            <h1 class="temp" style="margin:0px 0px 0px 0px" id="PerFormance">Points</h1>
+            <div class="temp1">
+                <img src="cup.png" alt="" width="100px" height="100px">
+                <h1 class="temp" id="CardScore">30</h1>
+                <button class="temp" style="margin:0px 0px 0px 25px;padding: 4px;" id="Report1">report</button>
+            </div>
+        </div>
+    </div>
+    <div id="overlay">
+        <div id="myFirstDialog">  
+            <i id="close" class="bi bi-x-circle-fill"></i>
+             <form action="" style="text-align:center;">
+                <p style="text-align:center;margin-bottom: 5px;">Set Minute</p>
+                <label for="">Timer:</label>
+                <input type="number" id="timeStart" style="margin-bottom: 5px;">
+             </form>
+             <i id="play" class="bi bi-play-fill"></i>
+        </div>  
+    </div>
+    <button onclick="popup()" class="btntheme" title="chess board theme">Theme</button>
+    <div class="sidenav" style="display: none;">
+        
+      </div>
+      
+    <h1 class="center1">Touch the given cell</h1>
+    <h1 class="Score com" id="pointS">Score:0</h1>
+    <p></p>
+    <h1 class="timers com" id="clockRec">00:00</h1>
+    <div class="timers com timeicon" id="timeicon"><i class="bi bi-stopwatch" onclick=RunClock(this) id="timeicon"></i></div>
+    <div class="parent" style="margin: 0px;line-height: .5;">
+        <h1 class="cellName">d1</h1>
+    </div>  
+    
+    <div class="parent">
+        <table class="chess board">
+
+        </table>
+    </div>
+    <br>
+    <button id="Report" style="float: right;">Report</button>
+    <br>
+    <div class="reportWin">
+        
+    </div>
+</body>
+<script>
+    //theme color
+    var arr=[],arr1=[['#ffffff','#000000'],["#9e7863","#633526"],["#ffffff","#e1e1e1"],["#ffce9e","#d18b47"],["#c3c6be","#727fa2"],["#e5f6cb","#58ac8a"],["#f0d9b5","#b58863"],["#e5f6cb","#b2c85d"]];
+        var arr2=[];
+        for(var i=0;i<arr1.length;i++)
+        {
+            var tp=[],tp1=[];
+            tp.push(arr1[i]);
+            tp1.push(arr1[i][1]);
+            tp1.push(arr1[i][0]);
+            tp.push(tp1);
+            arr2.push(tp);
+        }
+    //insert the theme
+    var themeX="";
+    for(var i=0;i<arr1.length;i++){
+        themeX+="<div class=temp "+(i+1)+">\n<table onclick=called("+i+") class=mytheme"+(i+1)+">\n";
+        for(var j=0;j<2;j++){
+            themeX+="<tr>\n"
+            for(var k=0;k<2;k++){
+                themeX+="<td class='rest' style='background-color:"+arr2[i][j][k]+";width: 30px;height: 30px;'></td>";
+            }
+            themeX+="</tr>";
+        }
+        themeX+="</table></div>"
+    }
+    document.getElementsByClassName("sidenav")[0].innerHTML=themeX;
+    var cellNamebox=[]
+
+    //staring point of call
+    function called(m){
+        for(var k=97;k<105;k++){
+            arr.push(String.fromCharCode(k))
+        }
+        var p="";
+        //index top
+        for(var i=0;i<8;i++){
+            p+="<td class=letter style='background-color:"+arr2[m][1][i%2]+";'>"+arr[i]+"</td>\n"
+        }
+        p+="</tr>"
+        for(var i=8;i>0;i--)
+        {
+            x=i%2;
+            p+="<tr>"
+            for(var j=0;j<8;j++)
+            {
+                y=(j)%2;
+                if(j==0){
+                    p+="<td class='"+arr[j]+i+"' id='cellId' style='background-color:"+arr2[m][x][y]+";font-size:8px;padding-left:1px;font-wieght:bold;'>"+i+"</td>\n";
+                }
+                else if(j==7){
+                    p+="<td class='"+arr[j]+i+"' id='cellId' style='background-color:"+arr2[m][x][y]+";font-size:8px;text-align:right;padding-right:1px;font-wieght:bold;'>"+i+"</td>\n";
+                }
+                else{
+                    p+="<td class='"+arr[j]+i+"' id='cellId' style='background-color:"+arr2[m][x][y]+"'>&nbsp;</td>\n";
+                }
+                cellNamebox.push(arr[j]+i);
+            }
+            p+="</tr>\n";
+            
+        }
+        p+="<tr>"
+        //index bottom
+        for(var i=0;i<8;i++){
+            p+="<td class=letter style='background-color:"+arr2[m][0][i%2]+";'>"+arr[i]+"</td>\n"
+        }
+        p+="</tr>"
+        document.getElementsByClassName("chess board")[0].innerHTML=p;
+    }
+    
+    function popup(){
+        var p=document.getElementsByClassName("sidenav")[0].style.display;
+        p=(p=="none")?"block":"none";
+        document.getElementsByClassName("sidenav")[0].style.display=p;
+    }
+
+    //Clock run Time
+    
+    //score variables
+    var givenName=null,goodV=[],AllV=[],points=0,current=0;
+        //TrackPerformance values
+        var Accuracy=0,TypeOfPerForm="";
+
+    //clock variables
+    var  getV=0,sec=60
+    var stops=null;
+    function RunClock(x){
+        if(x!=null){
+            stops=x.id;
+        }
+        if(stops!=null){
+            return 0;
+        }
+        else if(sec!=0){
+            sec-=1
+            document.getElementById("clockRec").innerHTML=getV+":"+sec;
+            setTimeout(RunClock, 1000);
+        }
+        else if(getV!=0){
+            getV-=1
+            sec=60;
+            document.getElementById("clockRec").innerHTML=getV+":"+sec;
+            setTimeout(RunClock, 1000);
+        }
+        else if(sec==0 && getV==0){
+            document.getElementById("overlap1").style.display="block";
+            document.getElementById("CardScore").innerHTML=points;
+            TrackPerformance();
+            document.getElementById("PerFormance").innerHTML=TypeOfPerForm;
+        }
+    }
+
+    //RANDOM VALUE OF CELLNAMES
+    function RandCellName(){
+        var RanValue=Math.floor(Math.random() * 64);
+        givenName=cellNamebox[RanValue];
+        document.getElementsByClassName('cellName')[0].innerHTML=cellNamebox[RanValue];
+    }
+
+    //report........................
+
+    document.getElementById("Report").addEventListener("click", function() {
+        ReportGenerator();
+    });
+    document.getElementById("Report1").addEventListener("click", function(){
+        ReportGenerator();
+    });
+
+//report generating function
+
+    function ReportGenerator(){
+        document.getElementById("overlap1").style.display="none";
+        TrackPerformance();
+            var tempValues="<h3 style='text-align:center'>Report</h3>\n<p style='float:right;margin:0px 0px 0px 0px'>"+TypeOfPerForm+"</p>\n<p>Score:"+points+"</p>\n<p>Accuracy:"+Accuracy+"</p><ul class='unorder'>",stick=0;
+            for(var k=0;k<AllV.length;k++){
+                if(goodV[stick]==k){
+                    tempValues+="<li id='listR' style='color:green;font-weight:bold;'>"+AllV[k]+"</li>";
+                    stick+=1;
+                }
+                else{
+                    tempValues+="<li id='listR' style='color:red;font-weight:bold;'>"+AllV[k]+"</li>"
+                }
+            }
+            tempValues+="</ul>"
+            document.getElementsByClassName("reportWin")[0].innerHTML=tempValues;
+            goodV=[],AllV=[],tempValues="",current=0,points=0;
+            document.getElementById("pointS").innerHTML="Score:"+points;
+
+    }
+    //TrackPerformance ................................
+    function TrackPerformance(){
+        Accuracy=((points/AllV.length)*100).toFixed(2);
+        Accuracy=(Accuracy=='NaN')?0:Accuracy;
+        if(Accuracy==100.00){
+            TypeOfPerForm="Perfect!";
+        }
+        else if(Accuracy>=80){
+            TypeOfPerForm="Excellent!";
+        }
+        else if(Accuracy>=60 && Accuracy<80){
+            TypeOfPerForm="Good!"
+        }
+        else if(Accuracy>=40 && Accuracy<60){
+            TypeOfPerForm="Improve!!"
+        }
+        else if(Accuracy<40){
+            TypeOfPerForm="Try Again!!"
+        }
+        return 0;
+    }
+
+    window.onclick = function(event) {
+        var q=event.target.className;
+        if(q!=="btntheme" && q!=="temp" && q!=="rest"){
+            document.getElementsByClassName("sidenav")[0].style.display="none";
+        }
+        if(event.target.id=='cellId'){
+            if(givenName==q){
+                goodV.push(current)
+                points+=1
+                document.getElementById("pointS").innerHTML="Score:"+points;
+            }
+            current+=1
+            AllV.push(givenName)
+            RandCellName();
+        }
+        if(event.target.id=="close" || event.target.id=="play"){
+            document.getElementById("overlay").style.display="none";
+        }
+        if(event.target.id=="play"){
+            getV=Math.floor(document.getElementById("timeStart").value-1);
+            if(getV>0 || getV==0){
+                sec=60;
+                stops=null;
+                RunClock();
+            }
+            else{
+                document.getElementById("clockRec").innerHTML="00:00"
+            }
+        }
+        if(event.target.id=='timeicon'){
+            document.getElementById("overlay").style.display="block";
+        }
+    }
+    //call area 
+    called(5);
+    RandCellName();
+</script>
+</html>
