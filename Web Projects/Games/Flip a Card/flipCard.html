@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="C:/Users/HP/Desktop/town hall/PROJECT/flip card/flipCard.css">
+    <link rel="stylesheet" href="flipCard.css">
     <title>Document</title>
 </head>
 <body>
@@ -59,7 +59,7 @@
     console.log(pic)
     window.onclick=(event=>{
         if(event.target.className=='img'){
-            paths=event.path
+            paths=event.composedPath()
             for (p of paths){
                 try{
                     if(p.id.slice(0,4  )=='flip'){
@@ -78,8 +78,8 @@
                 if(document.getElementById(c1).src==document.getElementById(c2).src){
                     document.getElementById(pre[0]).id='complete'+pre[0].slice(4,)
                     document.getElementById(pre[1]).id='complete'+pre[1].slice(4,)
-                    imgname[0].src='C:/Users/HP/Desktop/town hall/PROJECT/flip card/tick.jpg'
-                    imgname[1].src='C:/Users/HP/Desktop/town hall/PROJECT/flip card/tick.jpg'
+                    imgname[0].src='tick.jpg'
+                    imgname[1].src='tick.jpg'
                     ptemp=document.getElementById('score')
                     ex=Number(ptemp.innerHTML.slice(6,))+2
                     console.log(ex)
@@ -118,7 +118,7 @@
             div1.setAttribute('class','flip-card-front')
             img=document.createElement('img')
             img.setAttribute('class','img')
-            img.setAttribute('src','C:/Users/HP/Desktop/town hall/PROJECT/flip card/king_of_hearts2.png')
+            img.setAttribute('src','king_of_hearts2.png')
             img.setAttribute('width','100%')
             img.setAttribute('height','100%')
             div1.appendChild(img)
@@ -128,7 +128,7 @@
             div1.setAttribute('class','flip-card-back')
             img=document.createElement('img')
             img.setAttribute('id',`back${i}${j}`)
-            img.setAttribute('src',`C:/Users/HP/Desktop/town hall/PROJECT/flip card/images/town hall ${pic[cnt]}.png`)
+            img.setAttribute('src',`images/town hall ${pic[cnt]}.png`)
             img.setAttribute('width','100%')
             img.setAttribute('height','100%')
             div1.appendChild(img)
